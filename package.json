@@ -1,0 +1,9 @@
+{
+  "name": "sprint-dock-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "mkdir -p dist && cp -R index.html site.css SprintDock.html downloads dist/"
+  },
+  "devDependencies": {}
+}
