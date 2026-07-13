@@ -3,19 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sprint Dock Demo</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%231d1d1f'/%3E%3Cpath d='M18 22h28M18 32h20M18 42h14' stroke='%23fff' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <title>Sprint Dock Browser Demo</title>
     <style>
       :root {
         color-scheme: light;
-        --bg: #f5f5f7;
-        --ink: #1d1d1f;
-        --muted: #6e6e73;
-        --line: #e5e5ea;
+        --bg: #f7f9fd;
+        --ink: #0f172a;
+        --muted: #667085;
+        --line: #e5e9f2;
         --panel: rgba(255, 255, 255, 0.82);
-        --accent: #0071e3;
+        --accent: #2563eb;
+        --periwinkle: #6366f1;
+        --pink: #ec4899;
         --green: #2f9d68;
-        --shadow: 0 28px 80px rgba(0, 0, 0, 0.1);
+        --shadow: 0 28px 80px rgba(15, 23, 42, 0.1);
       }
 
       * {
@@ -27,8 +28,9 @@
         min-height: 100vh;
         margin: 0;
         background:
-          radial-gradient(circle at 50% -20%, rgba(0, 113, 227, 0.12), transparent 34%),
-          linear-gradient(180deg, #fbfbfd, var(--bg));
+          radial-gradient(circle at 68% 0%, rgba(37, 99, 235, 0.2), transparent 34%),
+          radial-gradient(circle at 86% 44%, rgba(236, 72, 153, 0.16), transparent 30%),
+          linear-gradient(180deg, #ffffff, var(--bg));
         color: var(--ink);
         font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
@@ -66,14 +68,24 @@
       }
 
       .mark {
-        display: grid;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
         width: 40px;
         height: 40px;
-        place-items: center;
         border-radius: 14px;
-        background: #1d1d1f;
-        color: #fff;
-        font-size: 0.82rem;
+        background:
+          radial-gradient(circle at 78% 82%, rgba(236, 72, 153, 0.82), transparent 34%),
+          linear-gradient(145deg, #5f8cff 0%, #2563eb 50%, #6c63ff 100%);
+        box-shadow: 0 14px 34px rgba(37, 99, 235, 0.24);
+      }
+
+      .mark span {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #fff;
       }
 
       .brand small {
@@ -88,10 +100,11 @@
         padding: 10px 14px;
         border: 0;
         border-radius: 999px;
-        background: var(--accent);
+        background: linear-gradient(135deg, var(--accent), var(--periwinkle));
         color: #fff;
         font-weight: 760;
         text-decoration: none;
+        box-shadow: 0 14px 34px rgba(37, 99, 235, 0.24);
       }
 
       .hero {
@@ -100,7 +113,7 @@
 
       .eyebrow {
         margin: 0 0 8px;
-        color: var(--green);
+        color: var(--accent);
         font-size: 0.76rem;
         font-weight: 850;
         letter-spacing: 0.08em;
@@ -128,9 +141,12 @@
         grid-template-columns: minmax(0, 1fr) 260px;
         gap: 18px;
         padding: clamp(18px, 3vw, 26px);
-        border: 1px solid rgba(229, 229, 234, 0.9);
+        border: 1px solid rgba(229, 233, 242, 0.92);
         border-radius: 28px;
-        background: var(--panel);
+        background:
+          radial-gradient(circle at 86% 12%, rgba(37, 99, 235, 0.1), transparent 26%),
+          radial-gradient(circle at 88% 90%, rgba(236, 72, 153, 0.14), transparent 26%),
+          var(--panel);
         box-shadow: var(--shadow);
         backdrop-filter: blur(24px);
       }
@@ -179,7 +195,7 @@
       .task input {
         width: 18px;
         height: 18px;
-        accent-color: var(--green);
+        accent-color: var(--accent);
       }
 
       .task span {
@@ -199,7 +215,9 @@
         min-height: 310px;
         padding: 18px;
         border-radius: 24px;
-        background: linear-gradient(145deg, #ffffff, #eef5ff);
+        background:
+          radial-gradient(circle at 82% 78%, rgba(236, 72, 153, 0.16), transparent 34%),
+          linear-gradient(145deg, #ffffff, #eef4ff);
       }
 
       .time {
@@ -228,7 +246,7 @@
 
       .controls button.primary {
         border-color: var(--accent);
-        background: var(--accent);
+        background: linear-gradient(135deg, var(--accent), var(--periwinkle));
         color: #fff;
       }
 
@@ -260,18 +278,18 @@
     <main class="shell">
       <header class="topbar">
         <a class="brand" href="./index.html" aria-label="Sprint Dock home">
-          <span class="mark">SD</span>
+          <span class="mark" aria-hidden="true"><span></span><span></span><span></span></span>
           <span>Sprint Dock <small>By Ethan</small></span>
         </a>
-        <a class="download" href="./downloads/SprintDock.zip" download="SprintDock.zip">Download the Mac app</a>
+        <a class="download" href="./downloads/SprintDock.zip" download="SprintDock.zip">Download for Mac</a>
       </header>
 
       <section class="hero">
-        <p class="eyebrow">Quick browser demo</p>
-        <h1>One goal. One timer. One next move.</h1>
+        <p class="eyebrow">Browser demo</p>
+        <h1>What do you want to finish today?</h1>
         <p class="lede">
-          This demo is intentionally simple. The full SprintDock app adds the native Mac workspace,
-          sprint library, menu bar controls, exports, and local persistence.
+          Organize a messy day into one finish line, one current task, and one next action.
+          The native Mac app adds the full workspace, menu bar controls, exports, and local persistence.
         </p>
       </section>
 
@@ -279,7 +297,7 @@
         <div>
           <div class="field">
             <label for="goal">Today&apos;s finish line</label>
-            <input id="goal" type="text" value="Finish the first version of my project" />
+            <input id="goal" type="text" value="Ship the first usable version" />
           </div>
 
           <p class="label">Next actions</p>
@@ -290,14 +308,14 @@
             </label>
             <label class="task">
               <input type="checkbox" />
-              <span>Complete the smallest useful version</span>
+              <span>Polish the highest-impact screen</span>
             </label>
             <label class="task">
               <input type="checkbox" />
-              <span>Do one final quality pass before sharing</span>
+              <span>Record the next action before closing</span>
             </label>
           </div>
-          <p class="note">Less dashboard, more focus. The real app keeps advanced tools tucked away until you need them.</p>
+          <p class="note">Less dashboard, more focus. The Mac app keeps advanced tools tucked away until you need them.</p>
         </div>
 
         <aside class="timer" aria-label="Focus timer">

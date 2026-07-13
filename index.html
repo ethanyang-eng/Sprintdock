@@ -3,142 +3,167 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sprint Dock - Focus Sprint App</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%231d1d1f'/%3E%3Cpath d='M18 22h28M18 32h20M18 42h14' stroke='%23fff' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E" />
-    <link rel="stylesheet" href="site.css?v=5" />
+    <title>Sprint Dock - Organize Today Into One Focused Sprint</title>
+    <meta
+      name="description"
+      content="Sprint Dock is a soft-premium Mac app for solo builders who want to organize today's work into one focused sprint."
+    />
+    <link rel="stylesheet" href="site.css?v=6" />
   </head>
   <body>
     <header class="site-header" aria-label="Sprint Dock">
       <a class="logo" href="./index.html" aria-label="Sprint Dock home">
-        <span class="logo-mark" aria-hidden="true">SD</span>
+        <span class="logo-mark" aria-hidden="true"><span></span><span></span><span></span></span>
         <span class="logo-text">Sprint Dock <small>By Ethan</small></span>
       </a>
       <nav aria-label="Product links">
-        <a href="#how-it-works">How it works</a>
+        <a href="#flow">Flow</a>
         <a href="#inside">Inside</a>
-        <a class="nav-download" href="./downloads/SprintDock.zip" download="SprintDock.zip">Download app</a>
+        <a href="./SprintDock.html">Demo</a>
+        <a class="nav-download" href="./downloads/SprintDock.zip" download="SprintDock.zip">Download for Mac</a>
       </nav>
     </header>
 
     <main>
       <section class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">Focused sprint app</p>
-          <h1>Sprint Dock</h1>
-          <p class="byline">By Ethan</p>
+          <p class="eyebrow">Native Mac focus app</p>
+          <h1>What do you want to finish today?</h1>
           <p class="lede">
-            A quiet Mac app for finishing one important thing at a time. Use it for launches,
-            writing, studying, admin, creative work, or any project that needs a clean finish line.
+            Sprint Dock organizes today&apos;s messy work into one focused sprint, so solo builders can
+            start with a clear finish line, one current task, and a visible next action.
           </p>
-          <div class="intent-strip" aria-label="What Sprint Dock is for">
+          <div class="intent-strip" aria-label="Sprint Dock principles">
             <span>One finish line</span>
-            <span>Any focused project</span>
-            <span>Guided focus flow</span>
+            <span>One current task</span>
+            <span>One next action</span>
           </div>
           <div class="hero-actions">
-            <a class="primary-link" href="./downloads/SprintDock.zip" download="SprintDock.zip">Download app</a>
-            <a class="secondary-link" href="./SprintDock.html">Open demo</a>
+            <a class="primary-link" href="./downloads/SprintDock.zip" download="SprintDock.zip">Download for Mac</a>
+            <a class="secondary-link" href="./SprintDock.html">Try the demo</a>
           </div>
-          <p class="download-note">The download contains only SprintDock.app. The browser version is a demo.</p>
+          <p class="download-note">The Mac download contains only Sprint Dock.app. The browser version is a lightweight demo.</p>
         </div>
 
         <div class="product-preview" aria-label="Sprint Dock app preview">
-          <div class="preview-top">
-            <span></span>
-            <span></span>
-            <span></span>
-            <strong>Focus Sprint</strong>
-          </div>
-          <div class="preview-grid">
-            <section class="preview-focus">
-              <p>Focus block</p>
-              <h2>What do you want to finish today?</h2>
-              <div class="preview-task">Finish the draft, launch, study block, or admin pile</div>
-              <div class="preview-timer">25:00</div>
-            </section>
-            <section class="preview-lanes">
-              <div>
-                <strong>Now</strong>
-                <span>First pass</span>
-                <span>Hardest part</span>
-              </div>
-              <div>
-                <strong>Next</strong>
-                <span>Quality pass</span>
-                <span>Shareable version</span>
-              </div>
-              <div>
-                <strong>Later</strong>
-                <span>Follow-up ideas</span>
-              </div>
-            </section>
-            <section class="preview-checklist">
-              <strong>Ready to finish</strong>
-              <div><span style="width: 72%"></span></div>
-              <p>Scope - Quality - Proof - Handoff - Follow-up</p>
-            </section>
+          <div class="preview-glow" aria-hidden="true"></div>
+          <div class="preview-window">
+            <div class="preview-top">
+              <span></span>
+              <span></span>
+              <span></span>
+              <strong>Today&apos;s Sprint</strong>
+            </div>
+            <div class="preview-grid">
+              <section class="preview-focus">
+                <p>Today&apos;s goal</p>
+                <h2>Ship the first usable version</h2>
+                <div class="preview-task">
+                  <span>Current task</span>
+                  Polish the landing page
+                </div>
+                <div class="preview-next">
+                  <span>Next action</span>
+                  Record a 60 second walkthrough
+                </div>
+              </section>
+              <section class="preview-timer-card">
+                <p>Focus sprint</p>
+                <div class="preview-timer">25:00</div>
+                <button type="button">Start</button>
+              </section>
+              <section class="preview-lanes">
+                <div>
+                  <strong>Now</strong>
+                  <span>Polish hero</span>
+                </div>
+                <div>
+                  <strong>Next</strong>
+                  <span>Export app zip</span>
+                </div>
+                <div>
+                  <strong>Later</strong>
+                  <span>Collect feedback</span>
+                </div>
+              </section>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="how-it-works" class="section-band">
+      <section id="flow" class="section-band">
         <div class="section-heading">
-          <p class="eyebrow">What it does</p>
-          <h2>It turns a messy goal into a guided sequence.</h2>
+          <p class="eyebrow">Daily execution</p>
+          <h2>Turn the pile into a clean sprint.</h2>
         </div>
         <div class="steps">
           <article>
             <span>1</span>
-            <h3>Start simple</h3>
-            <p>Answer one question: what do you want to finish today?</p>
+            <h3>Set your finish line</h3>
+            <p>Start with the one outcome that would make today feel complete.</p>
           </article>
           <article>
             <span>2</span>
-            <h3>Stay focused</h3>
-            <p>Work from the current goal, current task, timer, and next action.</p>
+            <h3>Pick one task</h3>
+            <p>Choose the most important next move instead of managing every possible task.</p>
           </article>
           <article>
             <span>3</span>
-            <h3>Open tools when needed</h3>
-            <p>Tasks, readiness, blockers, notes, log, and export live in secondary tabs.</p>
+            <h3>Run the sprint</h3>
+            <p>Use the timer, next action, and tucked-away tools to keep momentum visible.</p>
           </article>
         </div>
       </section>
 
       <section id="inside" class="section-band split-section">
         <div class="section-heading">
-          <p class="eyebrow">Inside the app</p>
-          <h2>A focused Mac app with the heavier tools tucked away.</h2>
+          <p class="eyebrow">Inside Sprint Dock</p>
+          <h2>Organized enough to trust. Minimal enough to use.</h2>
         </div>
         <div class="feature-list">
           <article>
-            <h3>Focus panel</h3>
-            <p>Goal, current task, next action, and timer stay visible so the sprint does not drift.</p>
+            <h3>Focused start</h3>
+            <p>The app opens with one question: what do you want to finish today?</p>
           </article>
           <article>
-            <h3>Work templates</h3>
-            <p>Start from launch, writing, study, life admin, creative, or general sprint templates.</p>
+            <h3>Mac-first workspace</h3>
+            <p>A native light-mode workspace keeps your current goal, task, timer, and next action close.</p>
           </article>
           <article>
-            <h3>Finish readiness</h3>
-            <p>Scope, quality, proof, handoff, and follow-up checks stay available as a secondary tab.</p>
+            <h3>Secondary tools</h3>
+            <p>Tasks, blockers, checklist, notes, history, and export stay tucked away until needed.</p>
           </article>
           <article>
-            <h3>Notes and history</h3>
-            <p>Capture decisions, blockers, focus sessions, and a summary without leaving the app.</p>
+            <h3>Solo builder flow</h3>
+            <p>Templates for building, studying, writing, launching, and life admin help you start quickly.</p>
           </article>
+        </div>
+      </section>
+
+      <section class="brand-panel" aria-label="Sprint Dock brand direction">
+        <div>
+          <p class="eyebrow">Brand direction</p>
+          <h2>Clean, organized, soft premium.</h2>
+          <p>Sprint Dock uses a calm blue identity with a soft blue, periwinkle, and pink glow inspired by modern product design.</p>
+        </div>
+        <div class="palette" aria-label="Sprint Dock color palette">
+          <span style="--swatch: #0f172a"></span>
+          <span style="--swatch: #2563eb"></span>
+          <span style="--swatch: #6366f1"></span>
+          <span style="--swatch: #ec4899"></span>
+          <span style="--swatch: #f5f6fa"></span>
         </div>
       </section>
 
       <section class="download-panel" aria-label="Download Sprint Dock app">
         <div>
-          <p class="eyebrow">Local app</p>
-          <h2>Download SprintDock.app and open it on your Mac.</h2>
-          <p>The zip contains only the actual app bundle, with no extra project folders or duplicate files.</p>
+          <p class="eyebrow">Download</p>
+          <h2>Open Sprint Dock as a real Mac app.</h2>
+          <p>The zip contains only the app bundle. No project folders, no duplicate files, no junk.</p>
         </div>
         <div class="download-actions">
-          <a class="primary-link" href="./downloads/SprintDock.zip" download="SprintDock.zip">Download app</a>
-          <a class="secondary-link" href="./SprintDock.html">Open demo</a>
+          <a class="primary-link" href="./downloads/SprintDock.zip" download="SprintDock.zip">Download for Mac</a>
+          <a class="secondary-link" href="./SprintDock.html">Try the demo</a>
         </div>
       </section>
     </main>
