@@ -148,14 +148,11 @@ export default async function handler(req, res) {
       const plan = await requestPlan({ goal, details, safetyIdentifier });
       return res.status(200).json(plan);
     } catch (error) {
-      const quotaUnavailable = error.openAICode === "insufficient_quota";
-      const transient = !quotaUnavailable && (
-        error.name === "AbortError"
+      const transient = error.name === "AbortError"
         || error.status === 408
         || error.status === 409
         || error.status === 429
-        || error.status >= 500
-      );
+        || error.status >= 500;
 
       if (attempt === 0 && transient) {
         await new Promise((resolve) => setTimeout(resolve, 350));
@@ -171,13 +168,11 @@ export default async function handler(req, res) {
         name: error.name
       }));
 
-      const status = quotaUnavailable ? 402 : transient ? 503 : 502;
+      const status = transient ? 503 : 502;
       return res.status(status).json({
-        error: quotaUnavailable
-          ? "AI billing is not available."
-          : transient
-            ? "AI planning is temporarily unavailable."
-            : "The AI plan could not be validated."
+        error: transient
+          ? "AI planning is temporarily unavailable."
+          : "The AI plan could not be validated."
       });
     }
   }
