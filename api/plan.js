@@ -109,9 +109,6 @@ async function requestPlan({ goal, details, safetyIdentifier }) {
     if (!response.ok) {
       const error = new Error("OpenAI request failed.");
       error.status = response.status;
-      error.openAICode = data?.error?.code || null;
-      error.openAIType = data?.error?.type || null;
-      error.requestId = response.headers.get("x-request-id");
       throw error;
     }
 
@@ -159,15 +156,6 @@ export default async function handler(req, res) {
         continue;
       }
 
-      console.error(JSON.stringify({
-        event: "openai_plan_failed",
-        status: error.status || null,
-        code: error.openAICode || null,
-        type: error.openAIType || null,
-        requestId: error.requestId || null,
-        name: error.name
-      }));
-
       const status = transient ? 503 : 502;
       return res.status(status).json({
         error: transient
@@ -177,3 +165,4 @@ export default async function handler(req, res) {
     }
   }
 }
+
