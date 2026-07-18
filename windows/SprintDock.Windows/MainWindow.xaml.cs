@@ -330,7 +330,7 @@ public partial class MainWindow : Window
     {
         if (sender is FrameworkElement { DataContext: SprintTask task }) return task;
         if (sender is MenuItem menuItem && ItemsControl.ItemsControlFromItemContainer(menuItem) is ContextMenu menu
-            && menu.PlacementTarget?.DataContext is SprintTask contextTask) return contextTask;
+            && menu.PlacementTarget is FrameworkElement { DataContext: SprintTask contextTask }) return contextTask;
         return null;
     }
 
