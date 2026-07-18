@@ -1,0 +1,58 @@
+name: Build Sprint Dock for Windows
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "windows/**"
+      - ".github/workflows/windows-build.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Run planner and persistence checks
+        run: dotnet run --project windows/SprintDock.Windows.Checks/SprintDock.Windows.Checks.csproj --configuration Release
+
+      - name: Publish self-contained Windows app
+        run: >-
+          dotnet publish windows/SprintDock.Windows/SprintDock.Windows.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          --output artifacts/publish
+
+      - name: Verify and package one app
+        shell: pwsh
+        run: |
+          $exe = "artifacts/publish/SprintDock.exe"
+          if (-not (Test-Path $exe)) { throw "SprintDock.exe was not produced." }
+          New-Item -ItemType Directory -Force -Path artifacts/package | Out-Null
+          Copy-Item $exe artifacts/package/SprintDock.exe
+          $files = @(Get-ChildItem artifacts/package -File)
+          if ($files.Count -ne 1 -or $files[0].Name -ne "SprintDock.exe") {
+            throw "The Windows package must contain only SprintDock.exe."
+          }
+          Compress-Archive -Path artifacts/package/SprintDock.exe -DestinationPath artifacts/SprintDock-Windows.zip
+          Write-Host "Packaged $([math]::Round((Get-Item $exe).Length / 1MB, 2)) MB single-file app."
+
+      - name: Upload Windows app
+        uses: actions/upload-artifact@v4
+        with:
+          name: SprintDock-Windows
+          path: artifacts/SprintDock-Windows.zip
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>SprintDock</AssemblyName>
+    <RootNamespace>SprintDock.Windows</RootNamespace>
+    <ApplicationIcon>Assets\SprintDock.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+    <Authors>Ethan</Authors>
+    <Company>Sprint Dock</Company>
+    <Product>Sprint Dock for Windows</Product>
+    <Copyright>Copyright 2026 Ethan</Copyright>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+</Project>
