@@ -38,13 +38,77 @@ jobs:
       - name: Smoke launch Windows app
         shell: pwsh
         run: |
-          $process = Start-Process "artifacts/publish/SprintDock.exe" -PassThru
-          Start-Sleep -Seconds 5
-          if ($process.HasExited) {
-            throw "SprintDock.exe exited during startup with code $($process.ExitCode)."
+          Add-Type -AssemblyName System.Drawing
+          Add-Type @"
+          using System;
+          using System.Runtime.InteropServices;
+
+          public struct WindowRect {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
           }
-          Stop-Process -Id $process.Id -Force
-          Write-Host "SprintDock.exe started successfully."
+
+          public static class WindowCapture {
+            [DllImport("user32.dll")]
+            public static extern bool GetWindowRect(IntPtr hWnd, out WindowRect rect);
+
+            [DllImport("user32.dll")]
+            public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+            [DllImport("user32.dll")]
+            public static extern bool ShowWindow(IntPtr hWnd, int command);
+          }
+          "@
+
+          $process = Start-Process "artifacts/publish/SprintDock.exe" -PassThru
+          try {
+            $null = $process.WaitForInputIdle(10000)
+            for ($attempt = 0; $attempt -lt 20; $attempt++) {
+              $process.Refresh()
+              if ($process.MainWindowHandle -ne [IntPtr]::Zero) { break }
+              Start-Sleep -Milliseconds 250
+            }
+
+            if ($process.HasExited) {
+              throw "SprintDock.exe exited during startup with code $($process.ExitCode)."
+            }
+            if ($process.MainWindowHandle -eq [IntPtr]::Zero) {
+              throw "SprintDock.exe started without creating a visible window."
+            }
+
+            $null = [WindowCapture]::ShowWindow($process.MainWindowHandle, 9)
+            $null = [WindowCapture]::SetForegroundWindow($process.MainWindowHandle)
+            Start-Sleep -Seconds 2
+
+            $rect = New-Object WindowRect
+            if (-not [WindowCapture]::GetWindowRect($process.MainWindowHandle, [ref]$rect)) {
+              throw "Could not read the Sprint Dock window bounds."
+            }
+
+            $width = $rect.Right - $rect.Left
+            $height = $rect.Bottom - $rect.Top
+            if ($width -lt 500 -or $height -lt 400) {
+              throw "Sprint Dock opened at an unexpected size: ${width}x${height}."
+            }
+
+            $bitmap = New-Object System.Drawing.Bitmap($width, $height)
+            $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+            try {
+              $graphics.CopyFromScreen($rect.Left, $rect.Top, 0, 0, $bitmap.Size)
+              $bitmap.Save("$PWD/artifacts/SprintDock-Windows.png", [System.Drawing.Imaging.ImageFormat]::Png)
+            }
+            finally {
+              $graphics.Dispose()
+              $bitmap.Dispose()
+            }
+
+            Write-Host "SprintDock.exe started successfully and its window was captured."
+          }
+          finally {
+            if (-not $process.HasExited) { Stop-Process -Id $process.Id -Force }
+          }
 
       - name: Verify and package one app
         shell: pwsh
@@ -65,5 +129,13 @@ jobs:
         with:
           name: SprintDock-Windows
           path: artifacts/SprintDock-Windows.zip
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload Windows screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: SprintDock-Windows-Screenshot
+          path: artifacts/SprintDock-Windows.png
           if-no-files-found: error
           retention-days: 30
