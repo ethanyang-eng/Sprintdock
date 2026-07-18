@@ -14,7 +14,6 @@
     <Product>Sprint Dock for Windows</Product>
     <Copyright>Copyright 2026 Ethan</Copyright>
     <PublishSingleFile>true</PublishSingleFile>
-    <SelfContained>true</SelfContained>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
     <DebugType>embedded</DebugType>
