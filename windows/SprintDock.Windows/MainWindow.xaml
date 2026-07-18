@@ -412,7 +412,7 @@
       </Border>
     </Grid>
 
-    <Grid x:Name="OnboardingOverlay" Grid.Row="1" Background="#F7F9FDF8">
+    <Grid x:Name="OnboardingOverlay" Grid.Row="1">
       <Grid.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
           <GradientStop Color="#F8FAFF" Offset="0" />
