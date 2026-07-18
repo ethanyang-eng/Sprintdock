@@ -35,6 +35,17 @@ jobs:
           --self-contained true
           --output artifacts/publish
 
+      - name: Smoke launch Windows app
+        shell: pwsh
+        run: |
+          $process = Start-Process "artifacts/publish/SprintDock.exe" -PassThru
+          Start-Sleep -Seconds 5
+          if ($process.HasExited) {
+            throw "SprintDock.exe exited during startup with code $($process.ExitCode)."
+          }
+          Stop-Process -Id $process.Id -Force
+          Write-Host "SprintDock.exe started successfully."
+
       - name: Verify and package one app
         shell: pwsh
         run: |
