@@ -6,10 +6,17 @@
     <title>Sprint Dock - Organize Today Into One Focused Sprint</title>
     <meta
       name="description"
-      content="Sprint Dock is a native Mac and Windows app for organizing today's work into one focused sprint."
+      content="Sprint Dock is a soft-premium Mac app for solo builders who want to organize today's work into one focused sprint."
     />
-    <link rel="icon" href="./favicon.ico" />
-    <link rel="stylesheet" href="site.css?v=7" />
+    <script>
+      (() => {
+        const isLocal = location.hostname === "127.0.0.1" || location.hostname === "localhost";
+        const localPreview = isLocal ? new URLSearchParams(location.search).get("platform") : "";
+        const platform = localPreview || navigator.userAgentData?.platform || navigator.platform || navigator.userAgent || "";
+        document.documentElement.dataset.platform = /windows|win32|win64/i.test(platform) ? "windows" : "mac";
+      })();
+    </script>
+    <link rel="stylesheet" href="site.css?v=8" />
   </head>
   <body>
     <header class="site-header" aria-label="Sprint Dock">
@@ -21,14 +28,14 @@
         <a href="#flow">Flow</a>
         <a href="#inside">Inside</a>
         <a href="./SprintDock.html">Demo</a>
-        <a class="nav-download" href="#download">Downloads</a>
+        <a class="nav-download" data-platform-download href="./downloads/SprintDock.zip" download="SprintDock.zip">Download for Mac</a>
       </nav>
     </header>
 
     <main>
       <section class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">Native focus app for Mac and Windows</p>
+          <p class="eyebrow" data-platform-eyebrow>Native Mac focus app</p>
           <h1>What do you want to finish today?</h1>
           <p class="lede">
             Sprint Dock organizes today&apos;s messy work into one focused sprint, so solo builders can
@@ -40,21 +47,25 @@
             <span>One next action</span>
           </div>
           <div class="hero-actions">
-            <a class="primary-link" href="./downloads/SprintDock.zip" download="SprintDock.zip">Download for Mac</a>
-            <a class="secondary-link" href="./downloads/SprintDock-Windows.zip" download="SprintDock-Windows.zip">Download for Windows</a>
+            <a class="primary-link" data-platform-download href="./downloads/SprintDock.zip" download="SprintDock.zip">Download for Mac</a>
             <a class="secondary-link" href="./SprintDock.html">Try the demo</a>
           </div>
-          <p class="download-note">Each desktop download contains one app. Windows supports 64-bit Windows 10 and 11. The browser version is a lightweight demo.</p>
+          <p class="download-note" data-platform-note>The Mac download contains only Sprint Dock.app. The browser version is a lightweight demo.</p>
         </div>
 
         <div class="product-preview" aria-label="Sprint Dock app preview">
           <div class="preview-glow" aria-hidden="true"></div>
           <div class="preview-window">
             <div class="preview-top">
-              <span></span>
-              <span></span>
-              <span></span>
+              <span class="mac-window-control"></span>
+              <span class="mac-window-control"></span>
+              <span class="mac-window-control"></span>
               <strong>Today&apos;s Sprint</strong>
+              <div class="preview-windows-controls" aria-hidden="true">
+                <span>&minus;</span>
+                <span>&#9633;</span>
+                <span>&times;</span>
+              </div>
             </div>
             <div class="preview-grid">
               <section class="preview-focus">
@@ -128,8 +139,8 @@
             <p>The app opens with one question: what do you want to finish today?</p>
           </article>
           <article>
-            <h3>Desktop-native workspace</h3>
-            <p>Dedicated Mac and Windows apps keep your current goal, task, timer, and next action close.</p>
+            <h3 data-platform-workspace-title>Mac-first workspace</h3>
+            <p data-platform-workspace-copy>A native light-mode workspace keeps your current goal, task, timer, and next action close.</p>
           </article>
           <article>
             <h3>Secondary tools</h3>
@@ -157,19 +168,43 @@
         </div>
       </section>
 
-      <section id="download" class="download-panel" aria-label="Download Sprint Dock app">
+      <section class="download-panel" aria-label="Download Sprint Dock app">
         <div>
           <p class="eyebrow">Download</p>
-          <h2>Open Sprint Dock as a real desktop app.</h2>
-          <p>Choose the native Mac app or the self-contained Windows app. No project folders, duplicate apps, or setup clutter.</p>
+          <h2 data-platform-download-title>Open Sprint Dock as a real Mac app.</h2>
+          <p data-platform-download-copy>The zip contains only the app bundle. No project folders, no duplicate files, no junk.</p>
         </div>
         <div class="download-actions">
-          <a class="primary-link" href="./downloads/SprintDock.zip" download="SprintDock.zip">Download for Mac</a>
-          <a class="secondary-link" href="./downloads/SprintDock-Windows.zip" download="SprintDock-Windows.zip">Download for Windows</a>
+          <a class="primary-link" data-platform-download href="./downloads/SprintDock.zip" download="SprintDock.zip">Download for Mac</a>
           <a class="secondary-link" href="./SprintDock.html">Try the demo</a>
         </div>
       </section>
     </main>
     <footer class="site-footer">Sprint Dock by Ethan</footer>
+    <script>
+      (() => {
+        if (document.documentElement.dataset.platform !== "windows") return;
+
+        document.querySelector('meta[name="description"]').content =
+          "Sprint Dock is a focused Windows app for organizing today's work into one clear sprint.";
+        document.querySelector("[data-platform-eyebrow]").textContent = "Native Windows focus app";
+        document.querySelector("[data-platform-note]").textContent =
+          "The Windows download contains only SprintDock.exe. It supports 64-bit Windows 10 and 11. The browser version is a lightweight demo.";
+        document.querySelector("[data-platform-workspace-title]").textContent = "Windows-first workspace";
+        document.querySelector("[data-platform-workspace-copy]").textContent =
+          "A native Windows workspace keeps your current goal, task, timer, and next action close.";
+        document.querySelector("[data-platform-download-title]").textContent =
+          "Open Sprint Dock as a real Windows app.";
+        document.querySelector("[data-platform-download-copy]").textContent =
+          "The zip contains only SprintDock.exe. No project folders, duplicate apps, or setup clutter.";
+        document.querySelector(".product-preview").setAttribute("aria-label", "Sprint Dock Windows app preview");
+
+        document.querySelectorAll("[data-platform-download]").forEach((link) => {
+          link.href = "./downloads/SprintDock-Windows.zip";
+          link.download = "SprintDock-Windows.zip";
+          link.textContent = "Download for Windows";
+        });
+      })();
+    </script>
   </body>
 </html>

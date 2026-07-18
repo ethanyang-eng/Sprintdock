@@ -172,8 +172,8 @@ p {
 
 h1 {
   max-width: 760px;
-  font-size: clamp(3.25rem, 6vw, 5.25rem);
-  line-height: 0.94;
+  font-size: clamp(3.25rem, 8.5vw, 6.9rem);
+  line-height: 0.9;
   letter-spacing: 0;
 }
 
@@ -190,7 +190,7 @@ h3 {
 
 .lede {
   max-width: 650px;
-  margin-top: 18px;
+  margin-top: 24px;
   color: #475467;
   font-size: clamp(1.08rem, 2vw, 1.32rem);
   line-height: 1.48;
@@ -200,7 +200,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 18px;
+  margin-top: 24px;
 }
 
 .intent-strip span {
@@ -222,7 +222,7 @@ h3 {
 }
 
 .hero-actions {
-  margin-top: 22px;
+  margin-top: 30px;
 }
 
 .primary-link,
@@ -329,6 +329,38 @@ h3 {
   color: var(--muted);
   font-size: 0.82rem;
   font-weight: 900;
+}
+
+.preview-windows-controls {
+  display: none;
+  align-items: stretch;
+  align-self: stretch;
+  margin: -14px -14px -14px auto;
+}
+
+html[data-platform="windows"] .preview-windows-controls span {
+  display: grid;
+  width: 44px;
+  height: auto;
+  border-radius: 0;
+  place-items: center;
+  background: transparent;
+  color: #344054;
+  box-shadow: none;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+html[data-platform="windows"] .preview-top .mac-window-control {
+  display: none;
+}
+
+html[data-platform="windows"] .preview-top strong {
+  margin-left: 0;
+}
+
+html[data-platform="windows"] .preview-windows-controls {
+  display: flex;
 }
 
 .preview-grid {
